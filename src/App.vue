@@ -1,28 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Table/>
+    <Chart v-if="getLoading" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Table from './components/Table.vue'
+import Chart from './components/Сhart.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    Table,
+    Chart
+  },
+  computed : {
+    getLoading(){
+      return !this.$store.getters.getLoading
+    },
+
+  },
+   async created() {
+     await this.$store.dispatch("loadExchanges")
+     await this.$store.dispatch('loadSomeInfo')
+   }
 }
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss" scoped>
+  #app{
+    display: flex;
+    margin-top: 50px;
+    justify-content: space-around;
+  }
 </style>
+
