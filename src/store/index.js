@@ -14,7 +14,7 @@ export default new Vuex.Store({
         chartData: [],
         loading: false,
         socket: null,
-        activeCurrencyPrice :0
+        activeCurrencyPrice: 0
 
 
     },
@@ -29,15 +29,15 @@ export default new Vuex.Store({
 
     },
     mutations: {
-        setActiveCurrencyPrice:(state, data)=>{
+        setActiveCurrencyPrice: (state, data) => {
             state.activeCurrencyPrice = data
         },
-        setActiveCurrencyPriceInExchanges: (state, data)=>{
+        setActiveCurrencyPriceInExchanges: (state, data) => {
             try {
                 state.list.find((el) => {
                     return el.CoinInfo.Id === data.CoinInfo.Id
                 }).DISPLAY[state.currency].PRICE = data.DISPLAY[state.currency].PRICE
-            }catch (e) {
+            } catch (e) {
                 console.log(e);
             }
 
@@ -55,7 +55,7 @@ export default new Vuex.Store({
         updateLoading: (state, data) => {
             state.loading = data
         },
-        setSocket : (state,data)=>{
+        setSocket: (state, data) => {
             state.socket = data
         },
 
@@ -92,13 +92,13 @@ export default new Vuex.Store({
                 })
 
         },
-        loadSomeInfo({commit,getters}){
+        loadSomeInfo({commit, getters}) {
             let apiKey = "78aa2882f2b8c76bb473bec5c4a6a528f379295355dc1871543bba2192b69d23";
             if (getters.getSocket) {
                 getters.getSocket.close()
             }
             let ccStreamer = new WebSocket('wss://streamer.cryptocompare.com/v2?api_key=' + apiKey);
-            commit('setSocket',ccStreamer);
+            commit('setSocket', ccStreamer);
 
             ccStreamer.onopen = function onStreamOpen() {
                 let subRequest = {
@@ -109,8 +109,8 @@ export default new Vuex.Store({
             };
 
             ccStreamer.onmessage = function onStreamMessage(message) {
-                if(message.data){
-                    commit('setActiveCurrencyPrice',JSON.parse( message.data).P)
+                if (message.data) {
+                    commit('setActiveCurrencyPrice', JSON.parse(message.data).P)
                 }
             }
         }

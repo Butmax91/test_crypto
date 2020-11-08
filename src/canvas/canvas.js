@@ -1,6 +1,6 @@
 export default class CanvasChart {
     constructor(canvas, data) {
-        if (canvas && data){
+        if (canvas && data) {
             this.ctx = canvas.getContext("2d");
             this.crypt = data.currentCrypt;
             this.info = data.chartData;

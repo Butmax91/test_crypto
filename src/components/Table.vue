@@ -13,7 +13,9 @@
             <td><img :src="'https://www.cryptocompare.com/' +item.CoinInfo.ImageUrl" :alt="item.Name" width="30"
                      height="30"></td>
             <td>{{item.CoinInfo.Name}}</td>
-            <td>{{item.CoinInfo.Name === getCurrentCrypt && getActiveCurrencyPrice ? "$ "+ getActiveCurrencyPrice :item.DISPLAY[getCurrency].PRICE}}</td>
+            <td>{{item.CoinInfo.Name === getCurrentCrypt && getActiveCurrencyPrice ? "$ "+ getActiveCurrencyPrice
+                :item.DISPLAY[getCurrency].PRICE}}
+            </td>
         </tr>
         </tbody>
 
@@ -27,7 +29,7 @@
         methods: {
             handleClick(item) {
                 this.$store.commit('updateCurrentCrypt', item.CoinInfo.Name);
-                this.$store.commit('setActiveCurrencyPriceInExchanges',item);
+                this.$store.commit('setActiveCurrencyPriceInExchanges', item);
                 this.$store.dispatch('loadDailyPair');
                 this.$store.dispatch('loadSomeInfo');
 
@@ -43,7 +45,7 @@
             getCurrency() {
                 return this.$store.getters.getCurrency
             },
-            getActiveCurrencyPrice () {
+            getActiveCurrencyPrice() {
                 return this.$store.getters.getActiveCurrencyPrice
             }
         },
@@ -56,6 +58,7 @@
         width: 400px;
         display: flex;
         flex-direction: column;
+
         tr {
             display: flex;
             cursor: pointer;
